@@ -1,0 +1,13 @@
+﻿apiVersion: configsync.gke.io/v1beta1
+kind: RootSync
+metadata:
+  name: root-sync
+  namespace: config-management-system
+spec:
+  sourceFormat: unstructured
+  sourceType: git
+  git:
+    repo: https://github.com/bikram-singh/gcp-anthos-fleet
+    branch: main
+    dir: config-sync-repo
+    auth: none

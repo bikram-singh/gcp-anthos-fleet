@@ -1,0 +1,10 @@
+﻿applySpecVersion: 1
+spec:
+  configSync:
+    enabled: true
+    sourceFormat: unstructured
+    syncRepo: https://github.com/bikram-singh/gcp-anthos-fleet
+    syncBranch: main
+    policyDir: config-sync-repo
+    secretType: none
+    preventDrift: false
