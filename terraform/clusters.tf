@@ -18,6 +18,14 @@ resource "google_container_cluster" "cluster" {
     services_secondary_range_name = "services"
   }
 
+  # Private nodes (no external IPs); the control plane endpoint stays public
+  # so kubectl works from your laptop.
+  private_cluster_config {
+    enable_private_nodes    = true
+    enable_private_endpoint = false
+    master_ipv4_cidr_block  = each.value.master_cidr
+  }
+
   workload_identity_config {
     workload_pool = "${var.project_id}.svc.id.goog"
   }
@@ -27,7 +35,10 @@ resource "google_container_cluster" "cluster" {
     project = var.project_id
   }
 
-  depends_on = [google_project_service.apis]
+  depends_on = [
+    google_project_service.apis,
+    google_compute_router_nat.nat,
+  ]
 }
 
 resource "google_container_node_pool" "pool" {

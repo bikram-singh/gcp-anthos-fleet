@@ -14,6 +14,7 @@ locals {
       subnet_cidr = "10.10.0.0/20"
       pods_cidr   = "10.20.0.0/16"
       svc_cidr    = "10.30.0.0/20"
+      master_cidr = "172.16.0.0/28"
     }
     "cluster-b" = {
       region      = var.region_b
@@ -21,16 +22,18 @@ locals {
       subnet_cidr = "10.11.0.0/20"
       pods_cidr   = "10.21.0.0/16"
       svc_cidr    = "10.31.0.0/20"
+      master_cidr = "172.16.0.16/28"
     }
   }
 }
 
 resource "google_compute_subnetwork" "subnet" {
-  for_each      = local.clusters
-  name          = "subnet-${each.key}"
-  region        = each.value.region
-  network       = google_compute_network.vpc.id
-  ip_cidr_range = each.value.subnet_cidr
+  for_each                 = local.clusters
+  name                     = "subnet-${each.key}"
+  region                   = each.value.region
+  network                  = google_compute_network.vpc.id
+  ip_cidr_range            = each.value.subnet_cidr
+  private_ip_google_access = true
 
   secondary_ip_range {
     range_name    = "pods"
