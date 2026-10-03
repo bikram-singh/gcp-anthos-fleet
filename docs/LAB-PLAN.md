@@ -195,7 +195,8 @@ To be written in the article:
 **Left behind on purpose or by design (near-zero cost):** the Terraform state bucket, the `tf-github-actions` service account and Workload Identity Federation pool, budget alerts, project-level IAM bindings added during the lab (MCS importer in two member formats, `container.admin` for the multi-cluster ingress service agent), and the Policy Controller fleet feature.
 
 **Cost record (fill in):**
-- Trial credit at the start: ₹7,869 remaining of ₹28,694 (from the Billing page)
+- Trial credit at the start: ₹7,869 remaining of ₹28,694 (from the Billing page)
+- Trial credit shown on the Billing banner: ₹6,750.95 on 3 Oct 2026, down from ₹7,869 at the start (a drop of ₹1,118.05). This is a billing-account figure that lags behind usage, so it is not the project's cost
 - Real total spend: _take from Billing → Reports, filtered to `gcp-anthos-fleet`_
 - The trial banner lagged behind real usage during the lab, so do not quote it
 
