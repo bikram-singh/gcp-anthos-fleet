@@ -674,7 +674,7 @@ Left behind on purpose, at near-zero cost: the state bucket, the CI service acco
 
 ## 📸 Snapshots
 
-Screenshots are planned for a `docs/snapshots/` folder and are not in the repo yet. Planned captures, by area:
+Screenshots are planned for a [`docs/snapshots/`](https://github.com/bikram-singh/gcp-anthos-fleet/tree/main/docs/snapshots) folder and are not in the repo yet. Planned captures, by area:
 
 | Area | What to capture |
 |---|---|
