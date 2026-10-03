@@ -86,13 +86,13 @@ Hands-on GCP Anthos (GKE Enterprise) fleet lab: two private GKE clusters in two 
 
 ---
 
-## Phase 5: Policy as Code with Policy Controller ⚠️
+## Phase 5: Policy as Code with Policy Controller
 
 🔧 **Done**
 - Policy Controller enabled per cluster (the fleet-wide command failed with an internal error, the per-membership command with `--location` worked)
 - Constraints delivered through Config Sync: `no-privileged-containers` (deny) and `pods-must-have-app-label` (dryrun), scoped to the `demo` namespace
 - Deny demo: a privileged pod was rejected by the webhook on **both** clusters
-- Audit demo: an unlabeled pod was allowed and then listed under `Violations` (**cluster-b only**)
+- Audit demo: an unlabeled pod was allowed and then listed under `Violations` on **both** clusters
 - The built-in policy bundle constraints (all in dryrun) also appear
 
 **Concepts:** ConstraintTemplates vs Constraints, deny vs dryrun, admission control
@@ -145,7 +145,7 @@ Hands-on GCP Anthos (GKE Enterprise) fleet lab: two private GKE clusters in two 
 
 🔧 **Done**
 - Security Posture feature shows 2/2 clusters healthy
-- Node service account checked: the node pools use the Compute Engine **default** service account, which has no **project-level** roles in this project. Roles inherited from the organization or a folder were not checked.
+- Node service account checked: the node pools use the Compute Engine **default** service account, which has no direct role bindings at the project or organization level (the hierarchy has no folder). Deny policies and group-based access were not checked.
 - Binary Authorization in dry-run on cluster-b: a policy of `ALWAYS_DENY` with `DRYRUN_AUDIT_LOG_ONLY` admitted the pod and logged `'nginx' : Denied by an ALWAYS_DENY admission rule`. The policy was then restored to `ALWAYS_ALLOW` (the original policy was not exported first, so this assumes the default).
 
 ⬜ **Not done:** replacing the node service account with a least-privilege one (it would recreate the node pools)
@@ -216,10 +216,9 @@ To be written in the article:
 ## Known gaps and caveats for the article
 
 - Mesh demo, strict mTLS, AuthorizationPolicy, canary and Binary Authorization ran on **cluster-b only**
-- Policy audit demo ran on cluster-b only. The deny demo ran on both
 - All timings and splits are single runs with samples 20 seconds or more apart
 - The root cause of the subset-based DestinationRule 503 is unknown
-- The node service account finding covers project-level roles only
+- The node service account finding covers direct role bindings at project and organization level only (no deny policies or group-based access)
 - Cloud DNS zones were not created by MCS in this project, which differs from the docs
 - Mesh SLO views were not tried
 
