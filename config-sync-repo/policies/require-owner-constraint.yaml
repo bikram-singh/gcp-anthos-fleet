@@ -1,0 +1,13 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sRequireOwner
+metadata:
+  name: configmaps-need-owner
+spec:
+  enforcementAction: deny
+  match:
+    kinds:
+    - apiGroups: [""]
+      kinds: ["ConfigMap"]
+    namespaces: ["policy-lab"]
+  parameters:
+    label: owner
