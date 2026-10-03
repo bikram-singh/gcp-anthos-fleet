@@ -149,7 +149,7 @@ Hands-on GCP Anthos (GKE Enterprise) fleet lab: two private GKE clusters in two 
 - Node service account checked: the node pools use the Compute Engine **default** service account, which has no direct role bindings at the project or organization level (the hierarchy has no folder). Deny policies and group-based access were not checked. The effective organization policy `iam.automaticIamGrantsForDefaultServiceAccounts` is enforced, which is consistent with the default service account not receiving the automatic Editor role.
 - Binary Authorization in dry-run on cluster-b: a policy of `ALWAYS_DENY` with `DRYRUN_AUDIT_LOG_ONLY` admitted the pod and logged `'nginx' : Denied by an ALWAYS_DENY admission rule`. The policy was then restored to `ALWAYS_ALLOW` (the original policy was not exported first, so this assumes the default).
 
-⬜ **Not done:** replacing the node service account with a least-privilege one (it would recreate the node pools)
+⚠️ **Partly done:** a least-privilege service account (`gke-node-min` with `logging.logWriter`, `monitoring.metricWriter` and `monitoring.viewer`) was validated on a temporary 1-node pool on cluster-b: the node became Ready in under a minute, the instance listed that service account, and an nginx pod ran on it. Not verified: that logs and metrics from that node reached Cloud Logging and Monitoring. The primary node pools were **not** replaced, since that would recreate them.
 
 ---
 
@@ -220,6 +220,7 @@ To be written in the article:
 - All timings and splits are single runs with samples 20 seconds or more apart
 - The root cause of the subset-based DestinationRule 503 is unknown
 - The node service account finding covers direct role bindings at project and organization level only (no deny policies or group-based access)
+- The least-privilege node service account was validated on a temporary extra pool only. The primary pools still use the default account, and log and metric delivery from the test node was not verified
 - Cloud DNS zones were not created by MCS in this project, which differs from the docs
 - Mesh SLO views were not tried
 
