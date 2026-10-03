@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: out-of-scope
-  namespace: demo
-data:
-  note: "should be rejected"
