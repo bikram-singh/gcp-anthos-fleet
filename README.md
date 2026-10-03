@@ -1,6 +1,6 @@
 <div align="center">
 
-# ☸️ GCP Anthos (GKE Enterprise) Fleet Lab
+# ☸️ GCP Anthos (GKE Enterprise) Fleet
 
 ### Two Private GKE Clusters · One Fleet · Config Sync · Policy Controller · Service Mesh · Multi-Cluster Gateway
 
