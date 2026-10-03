@@ -81,6 +81,7 @@ Hands-on GCP Anthos (GKE Enterprise) fleet lab: two private GKE clusters in two 
 **What went differently**
 - A file written with PowerShell's `Set-Content -Encoding utf8` got a byte-order mark and Config Sync rejected it (`KNV2010: missing field "apiVersion"`), which blocked the whole sync. Fix: write repo files without a BOM.
 - `nomos` was not used. `kubectl get rootsync` and `kubectl describe rootsync` showed status and errors.
+- A fleet-level check (`gcloud container fleet config-management describe`) shows the `configmanagement` feature `ACTIVE` with an empty `spec` and no per-membership state, which is consistent with the sync being driven by the `RootSync` created with `kubectl` and not by a fleet config. The fleet view therefore does not report sync status here. The Console had shown 2/2 clusters with Config Sync enabled right after install, and that difference was not investigated.
 
 **Concepts:** GitOps, RootSync vs RepoSync, unstructured format, drift correction
 
