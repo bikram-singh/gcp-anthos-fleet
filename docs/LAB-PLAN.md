@@ -145,7 +145,7 @@ Hands-on GCP Anthos (GKE Enterprise) fleet lab: two private GKE clusters in two 
 
 🔧 **Done**
 - Security Posture feature shows 2/2 clusters healthy
-- Node service account checked: the node pools use the Compute Engine **default** service account, which has no direct role bindings at the project or organization level (the hierarchy has no folder). Deny policies and group-based access were not checked.
+- Node service account checked: the node pools use the Compute Engine **default** service account, which has no direct role bindings at the project or organization level (the hierarchy has no folder). Deny policies and group-based access were not checked. The effective organization policy `iam.automaticIamGrantsForDefaultServiceAccounts` is enforced, which is consistent with the default service account not receiving the automatic Editor role.
 - Binary Authorization in dry-run on cluster-b: a policy of `ALWAYS_DENY` with `DRYRUN_AUDIT_LOG_ONLY` admitted the pod and logged `'nginx' : Denied by an ALWAYS_DENY admission rule`. The policy was then restored to `ALWAYS_ALLOW` (the original policy was not exported first, so this assumes the default).
 
 ⬜ **Not done:** replacing the node service account with a least-privilege one (it would recreate the node pools)
