@@ -48,7 +48,7 @@ Hands-on GCP Anthos (GKE Enterprise) fleet lab: two private GKE clusters in two 
 - GitHub Actions workflow: plan on request, manual apply and destroy
 
 **What went differently**
-- The first apply failed: the organization enforces `constraints/compute.vmExternalIpAccess`, so nodes could not get external IPs. Fix: private nodes plus Cloud NAT.
+- The first apply failed: the organization enforces `constraints/compute.vmExternalIpAccess` (effective policy `allValues: DENY`), so nodes could not get external IPs. A later test confirmed it: creating a plain VM was rejected with `Constraint constraints/compute.vmExternalIpAccess violated`. Fix: private nodes plus Cloud NAT.
 - Two workflow runs started a minute apart collided on the Terraform state lock.
 - The first "fix" commit contained only an error log file. The Terraform changes were never committed, so the next run behaved like the old code. Always check `git show --stat HEAD` before pushing.
 - Cancelling a running destroy did **not** stop it: the requests already sent to Google kept running, and the node pools and two fleet features were deleted. Recovery: wait for the operations to finish, clear the stale lock, plan, apply.
