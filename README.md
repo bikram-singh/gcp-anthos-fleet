@@ -118,6 +118,15 @@ attached clusters are covered as theory only.
 
 ## 🏛️ Architecture
 
+![Architecture diagram](docs/diagrams/architecture-diagram.svg)
+
+> Borders show how each part was built: solid blue for Terraform, dashed amber for gcloud, kubectl or the
+> Console, dashed red for resources created only for the test and removed afterwards. The Gateway
+> resources lived on the config cluster (`cluster-a`).
+
+<details>
+<summary>Prefer plain text? Expand for the ASCII diagrams</summary>
+
 ### 1. Delivery, network and clusters
 
 ```
@@ -259,8 +268,7 @@ attached clusters are covered as theory only.
 └───────────────────────────────────────────────┴──────────────────────────────────────────────────┘
 ```
 
-> The Gateway, its public IP and its load balancer were created for the test and
-> removed again. Gateway resources live on the config cluster (`cluster-a`).
+</details>
 
 ### 🔄 Layer Breakdown
 
@@ -342,7 +350,10 @@ gcp-anthos-fleet/
 │
 └── docs/
     ├── LAB-PLAN.md                        # phase plan, status, measured results, caveats
-    └── phases.md                          # short phase outline
+    ├── phases.md                          # short phase outline
+    └── diagrams/
+        ├── architecture-diagram.svg       # the all-in-one architecture diagram
+        └── architecture-diagram.png       # same diagram as PNG (Medium rejects SVG)
 ```
 
 > The mesh, MCS, Gateway, Workload Identity, Binary Authorization and fleet-scope
@@ -703,6 +714,7 @@ Recorded here so nobody has to discover them:
 |---|---|
 | 🗺️ [`docs/LAB-PLAN.md`](docs/LAB-PLAN.md) | The full phase plan with status, results, what went differently, cleanup order and caveats |
 | 📋 [`docs/phases.md`](docs/phases.md) | A short outline of the phases |
+| 🖼️ [`docs/diagrams/`](docs/diagrams/) | The architecture diagram as SVG and PNG |
 
 ### 🧭 Where to Look in the Code
 
